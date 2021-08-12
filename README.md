@@ -1,3 +1,7 @@
+# 更新
+1.支持集群的client.conf配置
+**只在v5.11版本下测试
+
 # Fdfs_client py
 
 The Python interface to the Fastdfs Ver 4.06.1.
