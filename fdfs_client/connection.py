@@ -23,7 +23,7 @@ class Connection(object):
     def __init__(self, **conn_kwargs):
         self.pid = os.getpid()
         self.host_tuple = conn_kwargs['host_tuple']
-        self.remote_port = conn_kwargs['port']
+        self.remote_port = conn_kwargs.get('port')
         self.remote_addr = None
         self.timeout = conn_kwargs['timeout']
         self._sock = None
@@ -49,7 +49,8 @@ class Connection(object):
         
     def _connect(self):
         '''Create TCP socket. The host is random one of host_tuple.'''
-        self.remote_addr = random.choice(self.host_tuple)
+        if not self.remote_port:
+            self.remote_addr, self.remote_port = random.choice(self.host_tuple)
         #print '[+] Connecting... remote: %s:%s' % (self.remote_addr, self.remote_port)
         #sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #sock.settimeout(self.timeout)
